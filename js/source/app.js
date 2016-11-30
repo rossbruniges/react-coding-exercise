@@ -4,6 +4,10 @@
  - create compontent for displaying the data
  - create wrapper compontent to display the list itself
  - modalar window functionality
+  - open window and input value
+  - click and update loans value
+  - highlight invested state
+ - total price of investments
 */
 
 import React from 'react';

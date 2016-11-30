@@ -10,6 +10,14 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _InvestButton = require('./InvestButton');
+
+var _InvestButton2 = _interopRequireDefault(_InvestButton);
+
+var _Dialog = require('./Dialog');
+
+var _Dialog2 = _interopRequireDefault(_Dialog);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27,28 +35,71 @@ var Loans = function (_Component) {
         var _this = _possibleConstructorReturn(this, (Loans.__proto__ || Object.getPrototypeOf(Loans)).call(this, props));
 
         _this.state = {
-            loans: props.initialData
+            loans: props.initialData,
+            dialog: null
         };
         return _this;
     }
 
     _createClass(Loans, [{
+        key: '_closeDialog',
+        value: function _closeDialog() {
+            this.setState({ dialog: null });
+        }
+    }, {
+        key: '_saveInvestment',
+        value: function _saveInvestment(action) {
+            if (action === 'dismiss') {
+                this._closeDialog();
+            }
+            console.log(action, 'inside _saveInvestment');
+        }
+    }, {
+        key: '_viewInvestment',
+        value: function _viewInvestment(loanIdx) {
+            this.setState({ dialog: loanIdx });
+        }
+    }, {
+        key: '_renderDialog',
+        value: function _renderDialog() {
+            if (!this.state.dialog) {
+                return null;
+            }
+            return _react2.default.createElement(
+                _Dialog2.default,
+                { onAction: this._saveInvestment.bind(this) },
+                _react2.default.createElement(
+                    'p',
+                    null,
+                    'Dialog contents - this will be a form but for now am happy with anything'
+                )
+            );
+        }
+    }, {
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
             return _react2.default.createElement(
-                'ul',
-                null,
-                this.state.loans.map(function (loan, idx) {
-                    return _react2.default.createElement(
-                        'li',
-                        { key: idx },
-                        _react2.default.createElement(
-                            'h2',
-                            null,
-                            loan.title
-                        )
-                    );
-                }, this)
+                'div',
+                { className: 'Loans' },
+                _react2.default.createElement(
+                    'ul',
+                    null,
+                    this.state.loans.map(function (loan, idx) {
+                        return _react2.default.createElement(
+                            'li',
+                            { key: idx },
+                            _react2.default.createElement(
+                                'h2',
+                                null,
+                                loan.title
+                            ),
+                            _react2.default.createElement(_InvestButton2.default, { onAction: _this2._viewInvestment.bind(_this2, idx) })
+                        );
+                    }, this)
+                ),
+                this._renderDialog()
             );
         }
     }]);
