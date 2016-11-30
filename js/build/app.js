@@ -1,7 +1,6 @@
 'use strict';
 
 /*
- - load JSON into initial data
  - create compontent for displaying the data
  - create wrapper compontent to display the list itself
  - modalar window functionality

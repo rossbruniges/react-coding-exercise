@@ -12,9 +12,9 @@ class Loans extends Component {
     render() {
         return(
             <ul>
-                {this.state.loans.map((loan, loanidx) => {
+                {this.state.loans.map((loan, idx) => {
                     return (
-                        <li data-idx="{loanidx}">
+                        <li key={idx}>
                             <h2>{loan.title}</h2>
                         </li>
                     );
@@ -23,5 +23,11 @@ class Loans extends Component {
         );
     }
 }
+
+Loans.propTypes = {
+    initialData: PropTypes.arrayOf(
+        PropTypes.object
+    )
+};
 
 export default Loans

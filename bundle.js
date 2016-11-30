@@ -184,7 +184,6 @@ process.umask = function() { return 0; };
 'use strict';
 
 /*
- - load JSON into initial data
  - create compontent for displaying the data
  - create wrapper compontent to display the list itself
  - modalar window functionality
@@ -220,7 +219,7 @@ fetch('data/loans.json').then(function (response) {
     ), document.getElementById('app'));
 });
 },{"./components/Loans":3,"react":184,"react-dom":4}],3:[function(require,module,exports){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -228,7 +227,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require("react");
+var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -255,17 +254,17 @@ var Loans = function (_Component) {
     }
 
     _createClass(Loans, [{
-        key: "render",
+        key: 'render',
         value: function render() {
             return _react2.default.createElement(
-                "ul",
+                'ul',
                 null,
-                this.state.loans.map(function (loan, loanidx) {
+                this.state.loans.map(function (loan, idx) {
                     return _react2.default.createElement(
-                        "li",
-                        { "data-idx": "{loanidx}" },
+                        'li',
+                        { key: idx },
                         _react2.default.createElement(
-                            "h2",
+                            'h2',
                             null,
                             loan.title
                         )
@@ -277,6 +276,10 @@ var Loans = function (_Component) {
 
     return Loans;
 }(_react.Component);
+
+Loans.propTypes = {
+    initialData: _react.PropTypes.arrayOf(_react.PropTypes.object)
+};
 
 exports.default = Loans;
 },{"react":184}],4:[function(require,module,exports){
