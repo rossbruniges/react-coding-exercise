@@ -1,0 +1,23 @@
+@charset 'UTF-8';
+
+@import 'vendor/normalize';
+
+html {
+	font-size: 10px;
+}
+
+body {
+	font-size: 1.4rem;
+	font-family: 'Open Sans', Corbel, Arial, sans-serif;
+	line-height: 1.2;
+}
+
+a:link,
+a:visited {
+	text-decoration: none;
+}
+
+a:focus,
+a:hover {
+	text-decoration: underline;
+}
