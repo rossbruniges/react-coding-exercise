@@ -73,9 +73,9 @@ class Loans extends Component {
                 <ul>
                     {this.state.loans.map((loan, idx) => {
                         return (
-                            <li key={idx}>
+                            <li className="Loan" key={idx}>
                                 <h2>{loan.title}</h2>
-                                <p>Expected Interest {loan.annualised_return}%</p>
+                                <p>Expected Interest: {loan.annualised_return}%</p>
                                 <p>Investment remaining: £{loan.available} (of £{loan.amount})</p>
                                 <InvestButton onAction={this._viewInvestment.bind(this, idx)}/>
                             </li>

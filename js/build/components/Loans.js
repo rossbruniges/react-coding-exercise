@@ -134,7 +134,7 @@ var Loans = function (_Component) {
                     this.state.loans.map(function (loan, idx) {
                         return _react2.default.createElement(
                             'li',
-                            { key: idx },
+                            { className: 'Loan', key: idx },
                             _react2.default.createElement(
                                 'h2',
                                 null,
@@ -143,7 +143,7 @@ var Loans = function (_Component) {
                             _react2.default.createElement(
                                 'p',
                                 null,
-                                'Expected Interest ',
+                                'Expected Interest: ',
                                 loan.annualised_return,
                                 '%'
                             ),
