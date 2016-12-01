@@ -1,11 +1,9 @@
 'use strict';
 
 /*
- - create compontent for displaying the data
  - create wrapper compontent to display the list itself
+ - create compontent for displaying the data
  - modalar window functionality
-  - open window and input value
-  - click and update loans value
   - highlight invested state
  - total price of investments
 */
@@ -22,6 +20,10 @@ var _Loans = require('./components/Loans');
 
 var _Loans2 = _interopRequireDefault(_Loans);
 
+var _schema = require('./schema');
+
+var _schema2 = _interopRequireDefault(_schema);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 fetch('data/loans.json').then(function (response) {
@@ -36,6 +38,6 @@ fetch('data/loans.json').then(function (response) {
             null,
             'Current Loans'
         ),
-        _react2.default.createElement(_Loans2.default, { initialData: data })
+        _react2.default.createElement(_Loans2.default, { initialData: data, schema: _schema2.default })
     ), document.getElementById('app'));
 });

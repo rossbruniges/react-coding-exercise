@@ -14,6 +14,10 @@ var _InvestButton = require('./InvestButton');
 
 var _InvestButton2 = _interopRequireDefault(_InvestButton);
 
+var _Form = require('./Form');
+
+var _Form2 = _interopRequireDefault(_Form);
+
 var _Dialog = require('./Dialog');
 
 var _Dialog2 = _interopRequireDefault(_Dialog);
@@ -52,7 +56,26 @@ var Loans = function (_Component) {
             if (action === 'dismiss') {
                 this._closeDialog();
             }
-            console.log(action, 'inside _saveInvestment');
+            var data = Array.from(this.state.loans),
+                formData = this.refs.form.getData(),
+                maxInvestment = parseInt(data[this.state.dialog]['available'], 10),
+                userInvestment = parseInt(formData['investment_amount'], 10);
+
+            if (isNaN(userInvestment)) {
+                console.error('Investment must be a numerical value');
+                return;
+            }
+
+            if (userInvestment > maxInvestment) {
+                console.error('Investment can not be more than the available amount');
+                return;
+            }
+
+            data[this.state.dialog]['available'] = maxInvestment - userInvestment;
+            this.setState({
+                dialog: null,
+                loans: data
+            });
         }
     }, {
         key: '_viewInvestment',
@@ -62,17 +85,39 @@ var Loans = function (_Component) {
     }, {
         key: '_renderDialog',
         value: function _renderDialog() {
-            if (!this.state.dialog) {
+            if (this.state.dialog === null) {
                 return null;
             }
+            var currentLoan = this.state.loans[this.state.dialog];
             return _react2.default.createElement(
                 _Dialog2.default,
                 { onAction: this._saveInvestment.bind(this) },
                 _react2.default.createElement(
+                    'h2',
+                    null,
+                    'Invest in ',
+                    currentLoan.title
+                ),
+                _react2.default.createElement(
                     'p',
                     null,
-                    'Dialog contents - this will be a form but for now am happy with anything'
-                )
+                    'Expected Interest ',
+                    currentLoan.annualised_return,
+                    '%'
+                ),
+                _react2.default.createElement(
+                    'p',
+                    null,
+                    'Investment remaining: \xA3',
+                    currentLoan.available,
+                    ' (of \xA3',
+                    currentLoan.amount,
+                    ')'
+                ),
+                _react2.default.createElement(_Form2.default, {
+                    ref: 'form',
+                    fields: this.props.schema,
+                    initialData: currentLoan })
             );
         }
     }, {
@@ -95,6 +140,22 @@ var Loans = function (_Component) {
                                 null,
                                 loan.title
                             ),
+                            _react2.default.createElement(
+                                'p',
+                                null,
+                                'Expected Interest ',
+                                loan.annualised_return,
+                                '%'
+                            ),
+                            _react2.default.createElement(
+                                'p',
+                                null,
+                                'Investment remaining: \xA3',
+                                loan.available,
+                                ' (of \xA3',
+                                loan.amount,
+                                ')'
+                            ),
                             _react2.default.createElement(_InvestButton2.default, { onAction: _this2._viewInvestment.bind(_this2, idx) })
                         );
                     }, this)
@@ -108,7 +169,8 @@ var Loans = function (_Component) {
 }(_react.Component);
 
 Loans.propTypes = {
-    initialData: _react.PropTypes.arrayOf(_react.PropTypes.object)
+    initialData: _react.PropTypes.arrayOf(_react.PropTypes.object),
+    schema: _react.PropTypes.arrayOf(_react.PropTypes.object)
 };
 
 exports.default = Loans;
